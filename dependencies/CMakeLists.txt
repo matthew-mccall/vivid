@@ -14,3 +14,4 @@ FetchContent_Declare( glm
 
 
 FetchContent_MakeAvailable( json glm )
+target_compile_definitions(glm PUBLIC GLM_ENABLE_EXPERIMENTAL)
