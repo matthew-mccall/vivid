@@ -11,28 +11,45 @@ add_compile_definitions( VIVID_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}/" )
 
 add_subdirectory( dependencies )
 
-add_library( ${PROJECT_NAME} STATIC
-    src/adobe.cpp
-    src/color.cpp
-    src/colormap.cpp
-    src/hex.cpp
-    src/hsl.cpp
-    src/hsv.cpp
-    src/index.cpp
-    src/interpolation.cpp
-    src/lab.cpp
-    src/lch.cpp
-    src/lrgb.cpp
-    src/name.cpp
-    src/oklab.cpp
-    src/rgb.cpp
-    src/rgb32.cpp
-    src/rgb8.cpp
-    src/srgb.cpp
-    src/types.cpp
-    src/utility.cpp
-    src/xyz.cpp
+# Option to enable/disable colormap support (enabled by default)
+option( VIVID_ENABLE_COLORMAP "Enable colormap support" ON )
+
+# Create the library target (no sources passed here) and attach sources via target_sources
+add_library( ${PROJECT_NAME} STATIC )
+
+# Add source files via target_sources (colormap.cpp appended conditionally)
+target_sources( ${PROJECT_NAME}
+    PRIVATE
+        src/adobe.cpp
+        src/color.cpp
+        src/hex.cpp
+        src/hsl.cpp
+        src/hsv.cpp
+        src/index.cpp
+        src/interpolation.cpp
+        src/lab.cpp
+        src/lch.cpp
+        src/lrgb.cpp
+        src/name.cpp
+        src/oklab.cpp
+        src/rgb.cpp
+        src/rgb32.cpp
+        src/rgb8.cpp
+        src/srgb.cpp
+        src/types.cpp
+        src/utility.cpp
+        src/xyz.cpp
 )
+
+if( VIVID_ENABLE_COLORMAP )
+    target_sources( ${PROJECT_NAME}
+        PRIVATE
+            src/colormap.cpp
+    )
+    message( STATUS "vivid: colormap support enabled" )
+else()
+    message( STATUS "vivid: colormap support disabled" )
+endif()
 
 add_library( ${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME} )
 
@@ -55,11 +72,18 @@ target_include_directories( ${PROJECT_NAME}
         $<INSTALL_INTERFACE:include>
 )
 
+# Link libraries: glm always, nlohmann_json only if colormap support is enabled
 target_link_libraries( ${PROJECT_NAME}
     PUBLIC
-        nlohmann_json::nlohmann_json
         glm::glm
 )
+
+if( VIVID_ENABLE_COLORMAP )
+    target_link_libraries( ${PROJECT_NAME}
+        PUBLIC
+            nlohmann_json::nlohmann_json
+    )
+endif()
 
 
 ################################################################################
