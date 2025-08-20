@@ -46,6 +46,11 @@ if( VIVID_ENABLE_COLORMAP )
         PRIVATE
             src/colormap.cpp
     )
+    # Define a preprocessor macro for conditional compilation of colormap functionality
+    target_compile_definitions( ${PROJECT_NAME}
+        PUBLIC
+            VIVID_ENABLE_COLORMAP=1
+    )
     message( STATUS "vivid: colormap support enabled" )
 else()
     message( STATUS "vivid: colormap support disabled" )

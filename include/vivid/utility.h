@@ -65,7 +65,9 @@ namespace lch {
 
 namespace ansi
 {
+#if defined(VIVID_ENABLE_COLORMAP)
     std::string colorize( const std::string& text, const ColorMap& cmap );
+#endif
     std::string colorize( const col_t& col, const std::string& label );
 
     void printColorTable(

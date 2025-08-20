@@ -2,7 +2,9 @@
 #include "vivid/conversion.h"
 #include "vivid/stream.h"
 #include "vivid/encoding.h"
+#if defined(VIVID_ENABLE_COLORMAP)
 #include "vivid/colormap.h"
+#endif
 #include "vivid/data/xterm.h"
 
 #include <glm/glm.hpp>
@@ -152,6 +154,7 @@ namespace ansi {
 
 
 ////////////////////////////////////////////////////////////////////////////////
+#if defined(VIVID_ENABLE_COLORMAP)
 std::string colorize( const std::string& text, const ColorMap& cmap )
 {
     if ( cmap.empty() ) {
@@ -170,6 +173,7 @@ std::string colorize( const std::string& text, const ColorMap& cmap )
     ss << ansi::reset;
     return ss.str();
 }
+#endif
 
 
 ////////////////////////////////////////////////////////////////////////////////
