@@ -7,9 +7,11 @@ project( vivid_examples
 
 add_executable( ${PROJECT_NAME}_basics basics.cpp )
 target_link_libraries( ${PROJECT_NAME}_basics PRIVATE vivid )
+target_compile_definitions( ${PROJECT_NAME}_basics PRIVATE GLM_ENABLE_EXPERIMENTAL )
 
 add_executable( ${PROJECT_NAME}_strong_types strong_types.cpp )
 target_link_libraries( ${PROJECT_NAME}_strong_types PRIVATE vivid )
+target_compile_definitions( ${PROJECT_NAME}_strong_types PRIVATE GLM_ENABLE_EXPERIMENTAL )
 
 
 # examples with qt dependency (QImage, QColor)
@@ -20,8 +22,10 @@ if ( Qt5_FOUND )
 
     add_executable( ${PROJECT_NAME}_advanced advanced.cpp )
     target_link_libraries( ${PROJECT_NAME}_advanced PUBLIC Qt5::Core Qt5::Gui vivid )
+    target_compile_definitions( ${PROJECT_NAME}_advanced PRIVATE GLM_ENABLE_EXPERIMENTAL )
 
     add_executable( ${PROJECT_NAME}_convert_maps convert_maps.cpp )
     target_link_libraries( ${PROJECT_NAME}_convert_maps PUBLIC Qt5::Core Qt5::Gui vivid )
+    target_compile_definitions( ${PROJECT_NAME}_convert_maps PRIVATE GLM_ENABLE_EXPERIMENTAL )
 
 endif()
