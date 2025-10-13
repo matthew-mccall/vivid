@@ -56,6 +56,9 @@ target_link_libraries( ${PROJECT_NAME}
         ${DEPENDENCIES}
 )
 
+target_compile_definitions( ${PROJECT_NAME}
+    PRIVATE GLM_ENABLE_EXPERIMENTAL
+)
 
 include( CTest )
 include( Catch )

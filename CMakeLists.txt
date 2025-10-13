@@ -49,6 +49,9 @@ target_compile_features( ${PROJECT_NAME}
         cxx_inline_namespaces
 )
 
+target_compile_definitions( ${PROJECT_NAME}
+    PRIVATE GLM_ENABLE_EXPERIMENTAL
+)
 target_include_directories( ${PROJECT_NAME}
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
