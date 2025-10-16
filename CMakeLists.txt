@@ -86,5 +86,16 @@ install(
 #  examples and tests
 ################################################################################
 
-add_subdirectory( examples )
-add_subdirectory( tests )
+string( TOUPPER ${PROJECT_NAME} PROJECT_PREFIX )
+
+option( ${PROJECT_PREFIX}_BUILD_TESTS "Build tests" ${PROJECT_IS_TOP_LEVEL} )
+
+if( ${PROJECT_PREFIX}_BUILD_TESTS )
+    add_subdirectory( tests )
+endif()
+
+option( ${PROJECT_PREFIX}_BUILD_EXAMPLES "Build examples" ${PROJECT_IS_TOP_LEVEL} )
+
+if( ${PROJECT_PREFIX}_BUILD_EXAMPLES )
+    add_subdirectory( examples )
+endif()
